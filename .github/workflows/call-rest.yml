@@ -30,9 +30,11 @@ jobs:
         run: |
           echo ${{ matrix.file }} # to test if the correct file was passed
 
-      - name: Make an API call
-        uses: fjogeleit/http-request-action@v1
+      - name: Get Bearer Toker
+        uses: fjogeleit/http-request-action@v1.16.4
+        id: bearer
         with:
-          url: 'https://postman-echo.com/post'
+          url: 'https://login.cloud.camunda.io/oauth/token'
           method: 'POST'
-          file: "${{ github.workspace }}/${{ matrix.file }}"
+          customHeaders: '{"Content-Type": "application/x-www-form-urlencoded"}'
+          data: '{"grant_type": "client_credentials", "audience": "value_2", "client_id":"", "client_secret": ""}'
