@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - '*.txt' # match '*.txt' files (created or updated)
-    branches: [ main ] # match specific branch
+    branches: [ test ] # match specific branch
 
 jobs:
   prepare-files:
