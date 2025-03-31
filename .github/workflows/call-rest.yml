@@ -38,3 +38,7 @@ jobs:
           method: 'POST'
           customHeaders: '{"Content-Type": "application/x-www-form-urlencoded"}'
           data: '{"grant_type": "client_credentials", "audience": "value_2", "client_id":${{ secrets.MODELER_CLIENT_ID }}, "client_secret": ${{ secrets.MODELER_CLIENT_SECRET }}}'
+      - name: Show Response
+        run: |
+          echo ${{ steps.bearer.outputs.response }}
+          echo ${{ fromJson(steps.myRequest.outputs.response).access_token }}
