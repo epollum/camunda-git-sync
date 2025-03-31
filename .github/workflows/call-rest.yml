@@ -41,4 +41,3 @@ jobs:
       - name: Show Response
         run: |
           echo ${{ steps.bearer.outputs.response }}
-          echo ${{ fromJson(steps.myRequest.outputs.response).access_token }}
