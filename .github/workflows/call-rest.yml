@@ -38,7 +38,19 @@ jobs:
           method: 'POST'
           customHeaders: '{"Content-Type": "application/x-www-form-urlencoded"}'
           data: 'grant_type=client_credentials&audience=api.cloud.camunda.io&client_id=${{ secrets.MODELER_CLIENT_ID }}&client_secret=${{ secrets.MODELER_CLIENT_SECRET }}'
+      
       - name: Show Response
         run: |
           echo ${{ steps.bearer.outputs.response }}
-          echo ${{ fromJson(steps.bearer.outputs.response).access_token}}
+          echo ${{ fromJson(steps.bearer.outputs.response).access_token }}
+
+      - name: Deploy to Zeebe
+        uses: fjogeleit/http-request-action@v1.16.4
+        with:
+          url: 'https://${{ secrets.CLUSTER_REGION }}.zeebe.camunda.io/${{ secrets.CLUSTER_ID}}/v2/topology'
+          method: 'GET'
+          customHeaders: '{"Authorization": Bearer ${{ fromJson(steps.bearer.outputs.response).access_token }}"'
+      
+      - name: Show Topology Response
+        run: |
+          echo ${{ steps.bearer.outputs.response }}
