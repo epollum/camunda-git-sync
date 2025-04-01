@@ -37,7 +37,7 @@ jobs:
           url: 'https://login.cloud.camunda.io/oauth/token'
           method: 'POST'
           customHeaders: '{"Content-Type": "application/x-www-form-urlencoded"}'
-          data: 'grant_type=client_credentials&audience=zeebe.camunda.io&client_id=${{ secrets.MODELER_CLIENT_ID }}&client_secret=${{ secrets.MODELER_CLIENT_SECRET }}'
+          data: 'grant_type=client_credentials&audience=zeebe.camunda.io&client_id=${{ secrets.ZEEBE_CLIENT_ID }}&client_secret=${{ secrets.ZEEBE_CLIENT_SECRET }}'
       
       - name: Show Response
         run: |
