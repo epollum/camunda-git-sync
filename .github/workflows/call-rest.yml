@@ -49,6 +49,7 @@ jobs:
         with:
           url: 'https://${{ secrets.CLUSTER_REGION }}.zeebe.camunda.io/${{ secrets.CLUSTER_ID}}/v2/deployments'
           method: 'POST'
+          contentType: "multipart/form-data"
           customHeaders: '{"Authorization": "Bearer ${{ fromJson(steps.zeebeBearer.outputs.response).access_token }}"}'
           file: "${{ github.workspace }}/${{ matrix.file }}"
       
