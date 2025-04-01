@@ -47,10 +47,8 @@ jobs:
       - name: Deploy to Zeebe
         uses: fjogeleit/http-request-action@v1.16.4
         with:
-          url: 'https://${{ secrets.CLUSTER_REGION }}.zeebe.camunda.io/${{ secrets.CLUSTER_ID}}/v2/topology'
+          url: 'https://${{ secrets.CLUSTER_REGION }}.zeebe.camunda.io/${{ secrets.CLUSTER_ID}}/v2/deployment'
           method: 'GET'
           customHeaders: '{"Authorization": "Bearer ${{ fromJson(steps.zeebeBearer.outputs.response).access_token }}"}'
+          file: "${{ github.workspace }}/${{ matrix.file }}"
       
-      - name: Show Topology Response
-        run: |
-          echo ${{ steps.bearer.outputs.response }}
