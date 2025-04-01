@@ -49,7 +49,7 @@ jobs:
         with:
           url: 'https://${{ secrets.CLUSTER_REGION }}.zeebe.camunda.io/${{ secrets.CLUSTER_ID}}/v2/topology'
           method: 'GET'
-          customHeaders: '{"Authorization": "Bearer ${{ fromJson(steps.bearer.outputs.response).access_token }}"'
+          customHeaders: '{"Authorization": "Bearer ${{ fromJson(steps.bearer.outputs.response).access_token }}}"'
       
       - name: Show Topology Response
         run: |
