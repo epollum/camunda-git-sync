@@ -15,9 +15,23 @@ jobs:
     steps:
       - id: file-changes
         uses: trilom/file-changes-action@v1.2.4
+  
+  get-bearer-token:
+    runs-on: ubuntu-latest
+    outputs:
+      bearer-token: ${{ fromJson(steps.zeebeBearer.outputs.response).access_token }}
+    steps:
+      - name: Get Bearer Toker
+        uses: fjogeleit/http-request-action@v1.16.4
+        id: zeebeBearer
+        with:
+          url: 'https://login.cloud.camunda.io/oauth/token'
+          method: 'POST'
+          customHeaders: '{"Content-Type": "application/x-www-form-urlencoded"}'
+          data: 'grant_type=client_credentials&audience=zeebe.camunda.io&client_id=${{ secrets.ZEEBE_CLIENT_ID }}&client_secret=${{ secrets.ZEEBE_CLIENT_SECRET }}'
 
   deploy-modified-files:
-    needs: prepare-files
+    needs: [prepare-files, get-bearer-token]
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -29,22 +43,12 @@ jobs:
       - name: Echo file
         run: |
           echo ${{ matrix.file }} # to test if the correct file was passed
-
-      - name: Get Bearer Toker
-        uses: fjogeleit/http-request-action@v1.16.4
-        id: zeebeBearer
-        with:
-          url: 'https://login.cloud.camunda.io/oauth/token'
-          method: 'POST'
-          customHeaders: '{"Content-Type": "application/x-www-form-urlencoded"}'
-          data: 'grant_type=client_credentials&audience=zeebe.camunda.io&client_id=${{ secrets.ZEEBE_CLIENT_ID }}&client_secret=${{ secrets.ZEEBE_CLIENT_SECRET }}'
       
       - name: Show Response
         run: |
           echo ${{ steps.bearer.outputs.response }}
-          echo ${{ fromJson(steps.zeebeBearer.outputs.response).access_token }}
 
       - name: Deploy to Zeebe
         run: |
-          curl -X POST "https://${{ secrets.CLUSTER_REGION }}.zeebe.camunda.io/${{ secrets.CLUSTER_ID }}/v2/deployments" -H "Authorization: Bearer ${{ fromJson(steps.zeebeBearer.outputs.response).access_token }}" -F "resources=@${{ github.workspace }}/${{ matrix.file }}"
+          curl -X POST "https://${{ secrets.CLUSTER_REGION }}.zeebe.camunda.io/${{ secrets.CLUSTER_ID }}/v2/deployments" -H "Authorization: Bearer ${{ fromJSON(needs.get-bearer-token.outputs.bearer-token }}" -F "resources=@${{ github.workspace }}/${{ matrix.file }}"
       
