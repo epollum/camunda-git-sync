@@ -4,7 +4,7 @@
     <bpmn:extensionElements>
       <zeebe:versionTag value="5" />
     </bpmn:extensionElements>
-    <bpmn:startEvent id="StartEvent_1">
+    <bpmn:startEvent id="StartEvent_1" name="Fight Me">
       <bpmn:outgoing>Flow_0izc5om</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_0izc5om" sourceRef="StartEvent_1" targetRef="Activity_0uf6vbf" />
@@ -12,7 +12,7 @@
       <bpmn:incoming>Flow_0izc5om</bpmn:incoming>
       <bpmn:outgoing>Flow_1q4gfxw</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:endEvent id="Event_09k9l89">
+    <bpmn:endEvent id="Event_09k9l89" name="Fight Over">
       <bpmn:incoming>Flow_0fv3tdx</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_1q4gfxw" sourceRef="Activity_0uf6vbf" targetRef="Activity_1a8gyqy" />
@@ -29,6 +29,9 @@
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_UserTask">
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="150" y="100" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="147" y="143" width="43" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1h07g1f_di" bpmnElement="Activity_0uf6vbf">
         <dc:Bounds x="240" y="78" width="100" height="80" />
@@ -36,6 +39,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_09k9l89_di" bpmnElement="Event_09k9l89">
         <dc:Bounds x="552" y="100" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="545" y="143" width="52" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0gnfuyk_di" bpmnElement="Activity_1a8gyqy">
         <dc:Bounds x="390" y="78" width="100" height="80" />
