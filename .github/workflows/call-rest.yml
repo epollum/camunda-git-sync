@@ -1,9 +1,9 @@
-name: 'Call REST API when a file is pushed'
+name: 'Deploy updated BPMNs to Zeebe'
 
 on:
   push:
     paths:
-      - '*.bpmn' # match '*.txt' files (created or updated)
+      - '*.bpmn' # match '*.bpmn' files (created or updated)
     branches: [ test ] # match specific branch
 
 jobs:
@@ -46,5 +46,5 @@ jobs:
 
       - name: Deploy to Zeebe
         run: |
-          curl -X POST "https://${{ CLUSTER_REGION }}.zeebe.camunda.io/${{ CLUSTER_ID }}/v2/deployments" -H "Authorization: Bearer ${{ fromJson(steps.zeebeBearer.outputs.response).access_token }}" -F "resources=@${{ github.workspace }}/${{ matrix.file }}"
+          curl -X POST "https://${{ secrets.CLUSTER_REGION }}.zeebe.camunda.io/${{ secrets.CLUSTER_ID }}/v2/deployments" -H "Authorization: Bearer ${{ fromJson(steps.zeebeBearer.outputs.response).access_token }}" -F "resources=@${{ github.workspace }}/${{ matrix.file }}"
       
