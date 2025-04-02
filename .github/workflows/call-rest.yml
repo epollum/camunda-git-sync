@@ -16,7 +16,7 @@ jobs:
       - id: file-changes
         uses: trilom/file-changes-action@v1.2.4
 
-  post-files-added:
+  deploy-modified-files:
     needs: prepare-files
     runs-on: ubuntu-latest
     strategy:
