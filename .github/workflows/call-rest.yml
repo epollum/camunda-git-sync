@@ -46,16 +46,5 @@ jobs:
 
       - name: Deploy to Zeebe
         run: |
-          curl -X POST "https://syd-1.zeebe.camunda.io/f5ed4d00-16fa-416f-9e49-7da4e398f2a6/v2/deployments" -H "Authorization: Bearer ${{ fromJson(steps.zeebeBearer.outputs.response).access_token }}" -F "resources=@${{ github.workspace }}/${{ matrix.file }}" \
-      
-          
-        
-      # - name: Deploy to Zeebe
-      #   uses: fjogeleit/http-request-action@v1.16.4
-      #   with:
-      #     url: 'https://${{ secrets.CLUSTER_REGION }}.zeebe.camunda.io/${{ secrets.CLUSTER_ID}}/v2/deployments'
-      #     method: 'POST'
-      #     contentType: "multipart/form-data"
-      #     customHeaders: '{"Accept": "application/json","Authorization": "Bearer ${{ fromJson(steps.zeebeBearer.outputs.response).access_token }}"}'
-      #     files: '{"data": ["${{ github.workspace }}/${{ matrix.file }}"]}'
+          curl -X POST "https://syd-1.zeebe.camunda.io/f5ed4d00-16fa-416f-9e49-7da4e398f2a6/v2/deployments" -H "Authorization: Bearer ${{ fromJson(steps.zeebeBearer.outputs.response).access_token }}" -F "resources=@${{ github.workspace }}/${{ matrix.file }}"
       
