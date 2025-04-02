@@ -40,7 +40,7 @@ jobs:
     strategy:
       matrix:
         file: ${{ fromJSON(needs.prepare-files.outputs.matrix-modified) }}
-        bearerToken: ${{ fromJSON(needs.get-bearer-token.outputs.bearer-token)) }}
+        bearerToken: ${{ fromJSON(needs.get-bearer-token.outputs.bearer-token) }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
